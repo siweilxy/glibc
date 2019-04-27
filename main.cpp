@@ -21,9 +21,13 @@ void print_info()
 
 int main() {
     std::cout << "test start" << std::endl;
-    test_aligned_alloc();
-    test_memalign();
-    test_mallopt();
     print_info();
+    //test_aligned_alloc();
+    //test_memalign();
+    //test_mallopt_M_PERTURB();
+    //test_mallopt_M_MMAP_THRESHOLD();
+    test_mallopt_M_TRIM_THRESHOLD();
+    print_info();
+
     return 0;
 }

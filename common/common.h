@@ -16,4 +16,6 @@ typedef struct test_s
 
 void test_aligned_alloc();
 void test_memalign();
-void test_mallopt();
+void test_mallopt_M_PERTURB();
+void test_mallopt_M_MMAP_THRESHOLD();
+void test_mallopt_M_TRIM_THRESHOLD();
