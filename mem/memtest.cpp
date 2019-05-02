@@ -17,8 +17,8 @@
 void mallocAndFree()
 {
     char *p = nullptr;
-    void* ps[10000];
-    for (unsigned int i = 0; i < 10000; ++i) {
+    void* ps[123456];
+    for (unsigned int i = 0; i < 123456; ++i) {
         //std::cout<<"s is "<<s.c_str()<<std::endl;
         p = (char*)malloc(1000*900);
         memset(p,0, 1000*900);
@@ -43,7 +43,7 @@ void mallocAndFree()
     }
 
 
-    for (int j = 0; j < 10000; ++j) {
+    for (int j = 0; j < 123456; ++j) {
         //std::cout<<ps[j]<<std::endl;
         free(ps[j]);
     }
