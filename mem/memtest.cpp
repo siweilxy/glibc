@@ -9,19 +9,20 @@
 #include <malloc.h>
 #include <vector>
 #include <cstring>
+#include <mcheck.h>
 #include "common.h"
 
 #define start std::cout<<__FUNCTION__<<" start"<<std::endl;
 #define end std::cout<<__FUNCTION__<<" end"<<std::endl;
 
-void mallocAndFree()
+void mallocAndFree(int mallocLength,int numbers)
 {
     char *p = nullptr;
-    void* ps[123456];
-    for (unsigned int i = 0; i < 123456; ++i) {
+    void* ps[numbers];
+    for (unsigned int i = 0; i < numbers; ++i) {
         //std::cout<<"s is "<<s.c_str()<<std::endl;
-        p = (char*)malloc(1000*900);
-        memset(p,0, 1000*900);
+        p = (char*)malloc(mallocLength);
+        memset(p,0, mallocLength);
         if(p == NULL)
         {
             printf("malloc error");
@@ -43,7 +44,7 @@ void mallocAndFree()
     }
 
 
-    for (int j = 0; j < 123456; ++j) {
+    for (int j = 0; j < numbers; ++j) {
         //std::cout<<ps[j]<<std::endl;
         free(ps[j]);
     }
@@ -89,14 +90,25 @@ void test_mallopt_M_MMAP_THRESHOLD()
 {
     start
     mallopt(M_MMAP_THRESHOLD,0);
-    mallocAndFree();
+    mallocAndFree(1024,100);
     end
 }
 
 void test_mallopt_M_TRIM_THRESHOLD()
 {
     start
-    mallopt(M_TRIM_THRESHOLD,0);
-    mallocAndFree();
+    mallopt(M_MMAP_THRESHOLD,1024*400);
+    //mallopt(M_TRIM_THRESHOLD,0);
+    mallocAndFree(1024*100,1000);
     end
 }
+
+void test_mtrace()
+{
+    start
+    mtrace();
+    //mallocAndFree(10,10);
+    malloc(100);
+    end
+}
+

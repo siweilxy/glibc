@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 #include "common.h"
 
 int main() {
@@ -22,9 +23,20 @@ int main() {
     //test_memalign();
     //test_mallopt_M_PERTURB();
     //test_mallopt_M_MMAP_THRESHOLD();
-    test_mallopt_M_TRIM_THRESHOLD();
+    //test_mallopt_M_TRIM_THRESHOLD();
+    test_mt race();
     printf("=======================after test===================================\n");
     print_info();
+
+    char t[111];
+    while (1){
+        fgets(t,4,stdin);
+        if (strcmp(t,"end") == 0)
+        {
+            printf("end\n");
+            break;
+        }
+    }
 
     return 0;
 }
