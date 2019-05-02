@@ -14,6 +14,7 @@ typedef struct test_s
     char data[1024];
 }test_t;
 
+void print_info();
 void test_aligned_alloc();
 void test_memalign();
 void test_mallopt_M_PERTURB();

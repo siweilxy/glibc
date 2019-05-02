@@ -9,5 +9,5 @@ include_directories(common)
 link_directories(/home/siwei/github/glibc/build)
 
 
-add_executable(glibc main.cpp mem/memtest.cpp)
-target_link_libraries(glibc test)
+add_executable(glibc main.cpp mem/memtest.cpp common/common.cpp)
+#target_link_libraries(glibc test)
