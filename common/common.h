@@ -7,12 +7,17 @@
 
 #endif //GLIBC_COMMON_H
 
+#include <iostream>
+
 typedef struct test_s
 {
     int i;
     int j;
     char data[1024];
 }test_t;
+
+#define start std::cout<<__FUNCTION__<<" ====================start====================="<<std::endl;
+#define end std::cout<<__FUNCTION__<<" ======================end======================="<<std::endl;
 
 void print_info();
 void test_aligned_alloc();
@@ -23,3 +28,5 @@ void test_mallopt_M_TRIM_THRESHOLD();
 void test_mtrace();
 void test_brk_sbrk();
 void test_mmap();
+void test_getrusage();
+void test_getrlimit();

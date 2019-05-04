@@ -27,6 +27,8 @@ int main() {
     //test_mtrace();
     //test_brk_sbrk();
     //test_mmap();
+    //test_getrusage();
+    test_getrlimit();
     printf("=======================after test===================================\n");
     print_info();
 

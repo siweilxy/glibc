@@ -9,5 +9,5 @@ include_directories(common)
 link_directories(/home/siwei/github/glibc/build)
 
 add_definitions("-g")
-add_executable(glibc main.cpp mem/memtest.cpp common/common.cpp aio/aiotest.cpp)
+add_executable(glibc main.cpp mem/memtest.cpp common/common.cpp aio/aiotest.cpp resourceUsageAndLimitation/testResourceUsageAndLimitation.cpp)
 #target_link_libraries(glibc test)

@@ -13,9 +13,6 @@
 #include <zconf.h>
 #include "common.h"
 
-#define start std::cout<<__FUNCTION__<<" ====================start====================="<<std::endl;
-#define end std::cout<<__FUNCTION__<<" ======================end======================="<<std::endl;
-
 void mallocAndFree(int mallocLength,int numbers)
 {
     char *p = nullptr;
