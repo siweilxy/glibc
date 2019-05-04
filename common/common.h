@@ -21,3 +21,5 @@ void test_mallopt_M_PERTURB();
 void test_mallopt_M_MMAP_THRESHOLD();
 void test_mallopt_M_TRIM_THRESHOLD();
 void test_mtrace();
+void test_brk_sbrk();
+void test_mmap();

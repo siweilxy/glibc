@@ -10,10 +10,11 @@
 #include <vector>
 #include <cstring>
 #include <mcheck.h>
+#include <zconf.h>
 #include "common.h"
 
-#define start std::cout<<__FUNCTION__<<" start"<<std::endl;
-#define end std::cout<<__FUNCTION__<<" end"<<std::endl;
+#define start std::cout<<__FUNCTION__<<" ====================start====================="<<std::endl;
+#define end std::cout<<__FUNCTION__<<" ======================end======================="<<std::endl;
 
 void mallocAndFree(int mallocLength,int numbers)
 {
@@ -109,6 +110,25 @@ void test_mtrace()
     mtrace();
     //mallocAndFree(10,10);
     malloc(100);
+    end
+}
+
+void test_brk_sbrk()
+{
+    start
+    void *brk_end = nullptr;
+    void *p = sbrk(0);
+    printf("current brk end:%p\n",p);
+    brk(p+4096);
+    brk_end = sbrk(0);
+    printf("current brk end:%p\n",brk_end);
+    end
+}
+
+void test_mmap()
+{
+    start
+
     end
 }
 

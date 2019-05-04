@@ -24,7 +24,9 @@ int main() {
     //test_mallopt_M_PERTURB();
     //test_mallopt_M_MMAP_THRESHOLD();
     //test_mallopt_M_TRIM_THRESHOLD();
-    test_mt race();
+    //test_mtrace();
+    //test_brk_sbrk();
+    //test_mmap();
     printf("=======================after test===================================\n");
     print_info();
 
@@ -37,6 +39,7 @@ int main() {
             break;
         }
     }
+
 
     return 0;
 }
