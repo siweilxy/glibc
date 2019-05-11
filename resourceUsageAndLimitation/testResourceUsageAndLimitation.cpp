@@ -209,8 +209,10 @@ void test_getrlimit()
     {
         printf("!!!!!!!!!!!!error!!!!!!!");
     }
+    printf("resource now is %d\n",resource);
     printf("1.RLIMIT_CPU:最大允许的CPU使用时间，秒为单位。当进程达到软限制，内核将给其发送SIGXCPU信号，这一信号的默认行为是终止进程的执行。然而，可以捕捉信号，处理句柄可将控制返回给主程序。如果进程继续耗费CPU时间，核心会以每秒一次的频率给其发送SIGXCPU信号，直到达到硬限制，那时将给进程发送 SIGKILL信号终止其执行\n");
     printf("RLIMIT_CPU rlim_max info is %lu second,rlim_cur is %lusecond to years is %lu\n\n",limit.rlim_max,limit.rlim_cur,limit.rlim_cur/60/60/24/30/365);
+
 
     resource = RLIMIT_FSIZE;
     ret = getrlimit(resource,&limit);
@@ -218,8 +220,10 @@ void test_getrlimit()
     {
         printf("!!!!!!!!!!!!error!!!!!!!");
     }
+    printf("resource now is %d\n",resource);
     printf("2.RLIMIT_FSIZE:进程可建立的文件的最大长度。如果进程试图超出这一限制时，核心会给其发送SIGXFSZ信号，默认情况下将终止进程的执行\n");
     printf("RLIMIT_FSIZE is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
+
 
     resource = RLIMIT_DATA;
     ret = getrlimit(resource,&limit);
@@ -227,8 +231,10 @@ void test_getrlimit()
     {
         printf("!!!!!!!!!!!!error!!!!!!!");
     }
+    printf("resource now is %d\n",resource);
     printf("3.RLIMIT_DATA:the max size of data memory for the process,if the process tries to allocate data memory beyond this amount,the allocation functions fails\n");
     printf("RLIMIT_DATA is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
+
 
     resource = RLIMIT_STACK;
     ret = getrlimit(resource,&limit);
@@ -236,8 +242,10 @@ void test_getrlimit()
     {
         printf("!!!!!!!!!!!!error!!!!!!!");
     }
+    printf("resource now is %d\n",resource);
     printf("3.RLIMIT_STACK:the max stack size for the process,if the process tries to extend its stackpast this size it gets a SIGSEGV signal\n");
     printf("RLIMIT_STACK is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
+
 
     resource = RLIMIT_CORE;
     ret = getrlimit(resource,&limit);
@@ -245,7 +253,135 @@ void test_getrlimit()
     {
         printf("!!!!!!!!!!!!error!!!!!!!");
     }
-    printf("3.RLIMIT_CORE:the max size coee file that this process can create.if process terminates and would dump a core file lager than this,then no core file is created.so setting this limit to zero prevents core files from ever being created\n");
+    printf("resource now is %d\n",resource);
+    printf("4.RLIMIT_CORE:the max size coee file that this process can create.if process terminates and would dump a core file lager than this,then no core file is created.so setting this limit to zero prevents core files from ever being created\n");
     printf("RLIMIT_CORE is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
+
+
+    resource = RLIMIT_RSS;
+    ret = getrlimit(resource,&limit);
+    if(ret != 0)
+    {
+        printf("!!!!!!!!!!!!error!!!!!!!");
+    }
+    printf("resource now is %d\n",resource);
+    printf("5.RLIMIT_RSS:The max amount of physical memory that this processs should get,this parameter is a guide for the system's scheduler and memory allocator,the system may give the process more memory when there is a surplus\n");
+    printf("RLIMIT_RSS is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
+
+
+    resource = RLIMIT_MEMLOCK;
+    ret = getrlimit(resource,&limit);
+    if(ret != 0)
+    {
+        printf("!!!!!!!!!!!!error!!!!!!!");
+    }
+    printf("resource now is %d\n",resource);
+    printf("6.RLIMIT_MEMLOCK:The max amount of  memory that can be locked into physical memory so it will never be paged out\n");
+    printf("RLIMIT_MEMLOCK is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
+
+
+    resource = RLIMIT_NPROC;
+    ret = getrlimit(resource,&limit);
+    if(ret != 0)
+    {
+        printf("!!!!!!!!!!!!error!!!!!!!");
+    }
+    printf("resource now is %d\n",resource);
+    printf("7.RLIMIT_NPROC:The max number of process that can be created with the same user id,if you have reached the limit for your user ID,ford will fail with EAGAIN\n");
+    printf("RLIMIT_NPROC is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
+
+
+    resource = RLIMIT_NOFILE;
+    ret = getrlimit(resource,&limit);
+    if(ret != 0)
+    {
+        printf("!!!!!!!!!!!!error!!!!!!!");
+    }
+    printf("resource now is %d\n",resource);
+    printf("8.RLIMIT_NOFILE and RLIMIT_OFILE:The max number of files that process can open,if it tries to open more files than this,its open attempt fails with errno EMFILE\n");
+    printf("RLIMIT_NOFILE is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
+
+    resource = RLIMIT_AS;
+    ret = getrlimit(resource,&limit);
+    if(ret != 0)
+    {
+        printf("!!!!!!!!!!!!error!!!!!!!");
+    }
+    printf("resource now is %d\n",resource);
+    printf("9.RLIMIT_AS:The max size of total memory that this process should get,if the process tries to allocate more memory beyond this amount with,for example:brk,malloc,mmap or sbrk,the allocation function fails\n");
+    printf("RLIMIT_AS is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
+
+
+    resource = RLIM_NLIMITS;
+    ret = getrlimit(resource,&limit);
+    if(ret != 0)
+    {
+        printf("!!!!!!!!!!!!error!!!!!!!");
+    }
+    printf("resource now is %d\n",resource);
+    printf("10.RLIM_NLIMITS:The number of different resource limits.any valid resource operand must be less than RLIM_NLIMITS\n");
+    printf("RLIM_NLIMITS is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
+
+    resource = RLIMIT_LOCKS;
+    ret = getrlimit(resource,&limit);
+    if(ret != 0)
+    {
+        printf("!!!!!!!!!!!!error!!!!!!!");
+    }
+    printf("resource now is %d\n",resource);
+    printf("11.RLIMIT_LOCKS:Maximum number of file locks 进程可建立的锁的最大值\n");
+    printf("RLIMIT_LOCKS is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
+
+    resource = RLIMIT_SIGPENDING;
+    ret = getrlimit(resource,&limit);
+    if(ret != 0)
+    {
+        printf("!!!!!!!!!!!!error!!!!!!!");
+    }
+    printf("resource now is %d\n",resource);
+    printf("12.RLIMIT_SIGPENDING: Maximum number of pending signals.\n");
+    printf("RLIMIT_SIGPENDING is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
+
+    resource = RLIMIT_MSGQUEUE;
+    ret = getrlimit(resource,&limit);
+    if(ret != 0)
+    {
+        printf("!!!!!!!!!!!!error!!!!!!!");
+    }
+    printf("resource now is %d\n",resource);
+    printf("13.RLIMIT_MSGQUEUE: Maximum bytes in POSIX message queues\n");
+    printf("RLIMIT_MSGQUEUE is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
+
+    resource = RLIMIT_NICE;
+    ret = getrlimit(resource,&limit);
+    if(ret != 0)
+    {
+        printf("!!!!!!!!!!!!error!!!!!!!");
+    }
+    printf("resource now is %d\n",resource);
+    printf("14.RLIMIT_NICE: Maximum nice priority allowed to raise to. Nice levels 19 .. -20 correspond to 0 .. 39 values of this resource limit.  \n");
+    printf("RLIMIT_NICE is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
+
+    resource = RLIMIT_RTPRIO;
+    ret = getrlimit(resource,&limit);
+    if(ret != 0)
+    {
+        printf("!!!!!!!!!!!!error!!!!!!!");
+    }
+    printf("resource now is %d\n",resource);
+    printf("15.RLIMIT_RTPRIO: Maximum realtime priority allowed for non-priviledged processes.\n");
+    printf("RLIMIT_RTPRIO is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
+
+    resource = RLIMIT_RTTIME;
+    ret = getrlimit(resource,&limit);
+    if(ret != 0)
+    {
+        printf("!!!!!!!!!!!!error!!!!!!!");
+    }
+    printf("resource now is %d\n",resource);
+    printf("16.RLIMIT_RTTIME: Maximum CPU time in µs that a process scheduled under a real-time\n"
+                   "     scheduling policy may consume without making a blocking system\n"
+                   "     call before being forcibly descheduled.");
+    printf("RLIMIT_RTTIME is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
     end
 }
