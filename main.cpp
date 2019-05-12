@@ -29,7 +29,8 @@ int main() {
     //test_mmap();
     //test_getrusage();
     //test_getrlimit();
-    testSetJmp();
+    //testSetJmp();
+    test_ucontext();
     printf("=======================after test===================================\n");
     print_info();
 

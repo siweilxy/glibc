@@ -31,3 +31,4 @@ void test_mmap();
 void test_getrusage();
 void test_getrlimit();
 void testSetJmp();
+void test_ucontext();
