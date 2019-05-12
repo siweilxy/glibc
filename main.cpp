@@ -28,7 +28,8 @@ int main() {
     //test_brk_sbrk();
     //test_mmap();
     //test_getrusage();
-    test_getrlimit();
+    //test_getrlimit();
+    testSetJmp();
     printf("=======================after test===================================\n");
     print_info();
 

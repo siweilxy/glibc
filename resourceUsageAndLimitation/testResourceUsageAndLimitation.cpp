@@ -383,5 +383,6 @@ void test_getrlimit()
                    "     scheduling policy may consume without making a blocking system\n"
                    "     call before being forcibly descheduled.");
     printf("RLIMIT_RTTIME is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
+
     end
 }

@@ -30,3 +30,4 @@ void test_brk_sbrk();
 void test_mmap();
 void test_getrusage();
 void test_getrlimit();
+void testSetJmp();
