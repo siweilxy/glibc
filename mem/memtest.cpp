@@ -13,7 +13,7 @@
 #include <zconf.h>
 #include "common.h"
 
-void mallocAndFree(int mallocLength,int numbers)
+int mallocAndFree(int mallocLength,int numbers)
 {
     char *p = nullptr;
     void* ps[numbers];
@@ -48,84 +48,92 @@ void mallocAndFree(int mallocLength,int numbers)
     }
     std::cout<<"after free"<<std::endl;
     print_info();
+    return 0;
 }
 
-void test_aligned_alloc()
+int test_aligned_alloc()
 {
-    start
+    pstart
     print_info();
     test_t *t1,*t2,*t3;
     t1  = (test_t*)malloc(1024);
     t2 = (test_t*)aligned_alloc(123456, sizeof(test_t)*1024);
     std::cout<<"t1: "<<t1<<" t2: "<<t2<<" errno is "<<errno<<std::endl;
-    end
+    pend
+    return 0;
 }
 
-void test_memalign()
+int test_memalign()
 {
-    start
+    pstart
     print_info();
     test_t *t1,*t2,*t3;
     t1  = (test_t*)malloc(1024);
     t2 = (test_t*)memalign(123456, sizeof(test_t)*1024);
     std::cout<<"t1: "<<t1<<" t2: "<<t2<<" errno is "<<errno<<std::endl;
-    end
+    pend
+    return 0;
 }
 
-void test_mallopt_M_PERTURB()
+int test_mallopt_M_PERTURB()
 {
-    start
+    pstart
     print_info();
     mallopt(M_PERTURB,0);
     int *t;
     t = (int *)malloc(sizeof(int));
     mallopt(M_PERTURB,1);
     std::cout<<"t is "<<*t<<std::endl;
-    end
+    pend
 }
 
-void test_mallopt_M_MMAP_THRESHOLD()
+int test_mallopt_M_MMAP_THRESHOLD()
 {
-    start
+    pstart
     mallopt(M_MMAP_THRESHOLD,0);
     mallocAndFree(1024,100);
-    end
+    pend
+    return 0;
 }
 
-void test_mallopt_M_TRIM_THRESHOLD()
+int test_mallopt_M_TRIM_THRESHOLD()
 {
-    start
+    pstart
     mallopt(M_MMAP_THRESHOLD,1024*400);
     //mallopt(M_TRIM_THRESHOLD,0);
     mallocAndFree(1024*100,1000);
-    end
+    pend
+    return 0;
 }
 
-void test_mtrace()
+int test_mtrace()
 {
-    start
+    pstart
     mtrace();
     //mallocAndFree(10,10);
     malloc(100);
-    end
+    pend
+    return 0;
 }
 
-void test_brk_sbrk()
+int test_brk_sbrk()
 {
-    start
+    pstart
     void *brk_end = nullptr;
     void *p = sbrk(0);
     printf("current brk end:%p\n",p);
     brk(p+4096);
     brk_end = sbrk(0);
     printf("current brk end:%p\n",brk_end);
-    end
+    pend
+    return 0;
 }
 
-void test_mmap()
+int test_mmap()
 {
-    start
+    pstart
 
-    end
+    pend
+    return 0;
 }
 

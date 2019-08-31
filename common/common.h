@@ -16,19 +16,20 @@ typedef struct test_s
     char data[1024];
 }test_t;
 
-#define start std::cout<<__FUNCTION__<<" ====================start====================="<<std::endl;
-#define end std::cout<<__FUNCTION__<<" ======================end======================="<<std::endl;
+#define pstart std::cout<<__FUNCTION__<<" ====================start====================="<<std::endl;
+#define pend std::cout<<__FUNCTION__<<" ======================end======================="<<std::endl;
 
-void print_info();
-void test_aligned_alloc();
-void test_memalign();
-void test_mallopt_M_PERTURB();
-void test_mallopt_M_MMAP_THRESHOLD();
-void test_mallopt_M_TRIM_THRESHOLD();
-void test_mtrace();
-void test_brk_sbrk();
-void test_mmap();
-void test_getrusage();
-void test_getrlimit();
-void testSetJmp();
-void test_ucontext();
+int print_info();
+int test_aligned_alloc();
+int test_memalign();
+int test_mallopt_M_PERTURB();
+int test_mallopt_M_MMAP_THRESHOLD();
+int test_mallopt_M_TRIM_THRESHOLD();
+int test_mtrace();
+int test_brk_sbrk();
+int test_mmap();
+int test_getrusage();
+int test_getrlimit();
+int testSetJmp();
+int test_ucontext();
+int testSignal();

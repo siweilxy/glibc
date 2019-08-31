@@ -104,15 +104,16 @@
 //    };
 //};
 
-void test_getrusage()
+int test_getrusage()
 {
-    start
+    pstart
     int who = RUSAGE_SELF;
     struct rusage usage;
     int ret;
     ret = getrusage(who,&usage);
     printf("%lu\n",usage.ru_msgsnd);
-    end
+    pend
+    return 0;
 }
 
 ///* Kinds of resource limit.  */
@@ -198,9 +199,9 @@ void test_getrusage()
 //#define RLIM_NLIMITS __RLIM_NLIMITS
 //};
 
-void test_getrlimit()
+int test_getrlimit()
 {
-    start
+    pstart
     struct rlimit limit;
     int resource = RLIMIT_CPU;
     int ret = 0;
@@ -384,5 +385,6 @@ void test_getrlimit()
                    "     call before being forcibly descheduled.");
     printf("RLIMIT_RTTIME is %lu max is %lu\n\n",limit.rlim_cur,limit.rlim_max);
 
-    end
+    pend
+    return 0;
 }

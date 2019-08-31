@@ -17,7 +17,7 @@
 //"int keepcost; /* top-most, releasable (via malloc_trim) space */\n"
 //"};");
 
-void print_info()
+int print_info()
 {
     struct mallinfo mi = mallinfo();
     printf("count by mallinfo:\n");
@@ -34,4 +34,5 @@ void print_info()
     printf("from malloc_stats:\n");
     malloc_stats();
     printf("\n");
+    return 0;
 }

@@ -6,18 +6,18 @@
 #include <ucontext.h>
 #include <common.h>
 
-void test_ucontext(void* arg);
+int test_ucontext(void* arg);
 
 void func11()
 {
-    start
-    end
+    pstart
+    pend
 }
 
 void func21()
 {
-    start
-    end
+    pstart
+    pend
 }
 
 void context_test()
@@ -35,7 +35,8 @@ void context_test()
     std::cout<<"main"<<std::endl;
 }
 
-void test_ucontext()
+int test_ucontext()
 {
     context_test();
+    return 0;
 }

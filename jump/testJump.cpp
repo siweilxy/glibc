@@ -10,24 +10,26 @@
 
 jmp_buf main_loop;
 int ret = 0;
-void do_command();
+int do_command();
 
-void abort_to_main_loop(int status)
+int abort_to_main_loop(int status)
 {
-    start
+    pstart
     longjmp(main_loop,status);
-    end
+    pend
+    return 0;
 }
 
-void func1()
+int func1()
 {
-    start
-    end
+    pstart
+    pend
+    return 0;
 }
 
-void testSetJmp()
+int testSetJmp()
 {
-    start
+    pstart
     int j = 0;
     while(1)
     {
@@ -47,16 +49,18 @@ void testSetJmp()
             do_command();
         }
     }
-    end
+    pend
+    return 0;
 }
 
-void do_command()
+int do_command()
 {
-    start
+    pstart
     char buffer[128];
     fgets(buffer,128,stdin);
     std::cout<<buffer<<std::endl;
     abort_to_main_loop(0);
 
-    end
+    pend
+    return 0;
 }

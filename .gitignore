@@ -33,3 +33,7 @@
 .idea/
 cmake-build-debug/
 build/
+.cproject
+.project
+.settings/
+
