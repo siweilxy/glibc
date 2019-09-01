@@ -21,15 +21,15 @@ int print_info()
 {
     struct mallinfo mi = mallinfo();
     printf("count by mallinfo:\n");
-    printf("mi.arena:    %d,     total size of memery allocated with sbrk by malloc\n", mi.arena);
-    printf("mi.ordblks:  %d,     number of chunks not in use,the memory allocator internally "
+    printf("mi.arena:    %d,     malloc中使用sbrk初始化获得的内存总大小 total size of memery allocated with sbrk by malloc\n", mi.arena);
+    printf("mi.ordblks:  %d,     被释放的内存数 number of chunks not in use,the memory allocator internally "
                    "gets chunks of memory from the system,and then carves them up to "
                    "satisfy individual malloc requests\n",mi.ordblks);
-    printf("mi.hblks:    %d,     total number of chunks allocated with mmap\n",mi.hblks);
-    printf("mi.hblkhd:   %d,     total size of memory allocated with mmap,in bytes\n",mi.hblkhd);
-    printf("mi.uordblks: %d,     the total size of memory occupied by chunks handed out by malloc\n",mi.uordblks);
-    printf("mi.fordblks: %d,     the total size of memory occupied by free (not in use) chunks\n",mi.fordblks);
-    printf("mi.keepcost: %d,     this is the size of the top-most releaseable chunk that normally borders the end of the heap\n",
+    printf("mi.hblks:    %d,     mmap初始化的总块数total number of chunks allocated with mmap\n",mi.hblks);
+    printf("mi.hblkhd:   %d,     mmap初始化的总大小total size of memory allocated with mmap,in bytes\n",mi.hblkhd);
+    printf("mi.uordblks: %d,     初始化内存的总大小the total size of memory occupied by chunks handed out by malloc\n",mi.uordblks);
+    printf("mi.fordblks: %d,     被释放内存的总大小the total size of memory occupied by free (not in use) chunks\n",mi.fordblks);
+    printf("mi.keepcost: %d,     最顶部，可释放的内存？比如通过 malloc_trim释放，this is the size of the top-most releaseable chunk that normally borders the end of the heap\n",
            mi.keepcost);
     printf("from malloc_stats:\n");
     malloc_stats();

@@ -33,3 +33,4 @@ int test_getrlimit();
 int testSetJmp();
 int test_ucontext();
 int testSignal();
+int test_realloc();

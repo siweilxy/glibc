@@ -16,11 +16,11 @@ int endTest()
 std::map<int, std::function<int(void)>> testList =
 {
 { 1, print_info },
-{ 2, endTest } };
+{ 2, endTest } ,{3,test_realloc},{4,test_aligned_alloc}};
 std::map<int, std::string> testListName =
 {
 { 1, "print_info" },
-{ 2, "end" } };
+{ 2, "end" },{3,"test_realloc"},{4,"test_aligned_alloc"} };
 
 int main()
 {
