@@ -12,6 +12,13 @@
 #include <mcheck.h>
 #include <zconf.h>
 #include "common.h"
+#include <errno.h>
+
+
+void abortfun(enum mcheck_status mstatus)
+{
+    std::cout<<"内存申请或者释放出现错误 "<<mstatus<<std::endl;
+}
 
 int mallocAndFree(int mallocLength,int numbers)
 {
@@ -30,19 +37,7 @@ int mallocAndFree(int mallocLength,int numbers)
     std::cout<<"after malloc"<<std::endl;
     print_info();
 
-    char t[111];
-    while (1){
-        fgets(t,4,stdin);
-        if (strcmp(t,"end") == 0)
-        {
-            printf("end\n");
-            break;
-        }
-    }
-
-
     for (int j = 0; j < numbers; ++j) {
-        //std::cout<<ps[j]<<std::endl;
         free(ps[j]);
     }
     std::cout<<"after free"<<std::endl;
@@ -88,6 +83,21 @@ int test_memalign()
     return 0;
 }
 
+int test_mallopt_M_MAP_MAX()
+{
+    pstart
+    print_info();
+    mallopt(M_MMAP_MAX,0);
+    int *t;
+    t = (int *)malloc(sizeof(int));
+    mallopt(M_PERTURB,1);
+    std::cout<<"t is "<<*t<<std::endl;
+    std::cout<<"M_MMAP_MAX 设置的是mmap初始化的内存块数的最大值，如果是0,则表示不使用mmap进行初始化，默认值是65536,这个值也可以通过"
+            "MALLOC_MMAP_MAX_ 环境变量来初始化"<<std::endl;
+    pend
+    return 0;
+}
+
 int test_mallopt_M_PERTURB()
 {
     pstart
@@ -103,7 +113,19 @@ int test_mallopt_M_PERTURB()
 
 int test_mallopt_M_MMAP_THRESHOLD()
 {
+//    All chunks larger than this value are allocated outside the normal heap,
+//using the mmap system call. This way it is guaranteed that the memory for
+//these chunks can be returned to the system on free. Note that requests
+//smaller than this threshold might still be allocated via mmap.
+//If this parameter is not set, the default value is set as 128 KiB and the
+//threshold is adjusted dynamically to suit the allocation patterns of the
+//program. If the parameter is set, the dynamic adjustment is disabled and
+//the value is set statically to the input value.
+//This parameter can also be set for the process at startup by setting the
+//environment variable MALLOC_MMAP_THRESHOLD_ to the desired value.
+
     pstart
+    std::cout<<"比 M_MMAP_THRESHOLD 值大的内存块会被用mmap系统调用在初始化在一般堆外，这些内存块可以被用free函数释放，注意比这个值小的内存块也有可能会被使用mmap来申请内存，这个值也可以通过环境变量用MALLOC_MMAP_THRESHOLD_来设置"<<std::endl;
     mallopt(M_MMAP_THRESHOLD,0);
     mallocAndFree(1024,100);
     pend
@@ -163,6 +185,32 @@ int test_realloc()
     void *value = realloc(t,15);
     memcpy(value,&test1[0],sizeof(test1));
     std::cout<<"使用realloc修改后： "<<(char*)value<<std::endl;
+    return 0;
+}
+
+int test_mcheck()
+{
+    pstart
+    std::cout<<"调用该函数后，后续的内存分配、释放都将进行内存的连续性检查，并在内存连续性检查失败后，"
+            "调用 abortfunc函数，如果abortfunc使用NULL，则使用默认行为：打印错误信息并调用abort()退出"<<std::endl;
+    int ret = mcheck(abortfun);
+    if (ret != 0)  // 注册 mcheck 内存检查功能
+    {
+            std::cout<<"mcheck error :"<< strerror(errno)<< " ret is "<<ret<<std::endl;;
+            return -1;
+    }
+    char *p = NULL;
+
+    p = (char*)malloc(10);
+
+    free(p);
+    printf("1st free finished.\n");
+
+    free(p); // 第二次，p 指向的内存已经被释放，会被检查到，将会调用 \abortfunc
+
+    printf("2nd free\n");
+
+    pend
     return 0;
 }
 

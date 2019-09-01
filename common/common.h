@@ -34,3 +34,5 @@ int testSetJmp();
 int test_ucontext();
 int testSignal();
 int test_realloc();
+int test_mallopt_M_MAP_MAX();
+int test_mcheck();
