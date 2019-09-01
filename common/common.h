@@ -36,3 +36,5 @@ int testSignal();
 int test_realloc();
 int test_mallopt_M_MAP_MAX();
 int test_mcheck();
+int test_mprobe();
+int test_pipe();
