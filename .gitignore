@@ -36,4 +36,4 @@ build/
 .cproject
 .project
 .settings/
-
+bin/
