@@ -11,3 +11,8 @@ link_directories(/home/siwei/github/glibc/build)
 add_definitions("-g")
 add_executable(glibc main.cpp pipe/pipeTest.cpp mem/memtest.cpp common/common.cpp aio/aiotest.cpp resourceUsageAndLimitation/testResourceUsageAndLimitation.cpp CPU/testCpu.cpp jump/testJump.cpp ucontext/ucontext.cpp signal/testSignal.cpp)
 target_link_libraries(glibc mcheck)
+
+add_subdirectory(/home/siwei/github/glibc/singleTest/ )
+SET(EXECUTABLE_OUTPUT_PATH /home/siwei/github/glibc/bin)
+
+#install(FILES glibc DESTINATION /home/siwei/github/glibc/bin)

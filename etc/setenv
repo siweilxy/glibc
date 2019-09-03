@@ -1,1 +1,2 @@
 export MALLOC_TRACE=./mem.log
+export PATH=$PATH:${HOME}/github/glibc/bin

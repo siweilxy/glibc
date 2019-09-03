@@ -20,7 +20,6 @@ void read_from_pipe(int file)
     pstart
     FILE *stream;
     char msg[100]={0};
-    //stream = fdopen(file, "r");
 
     while(1)
     {
@@ -34,7 +33,6 @@ void read_from_pipe(int file)
         }
     }
     pend
-    //fclose(stream);
 }
 /* Write some random text to the pipe. */
 void write_to_pipe(int file)
@@ -46,28 +44,21 @@ void write_to_pipe(int file)
     char temBye[]="goodbye, world!\n";
     char buf[512]={0};
     memcpy(buf,temHello,sizeof(temHello));
-    //stream = fdopen(file, "w");
-    //fprintf(stream, "hello, world!\n");
     write(file,&buf[0],15);
 
     while(1)
     {
         std::cout<<"请输入字符串：\n"<<std::endl;
         std::cin>>temp;
-        //fgets(temp, 10, stdin);
         std::cout<<"输入的字符串为："<<temp<<std::endl;
-        //fprintf(stream,temp);
         write(file,&temp[0],strlen(temp));
-        //fprintf(stream,"\n");
         if(temp[0] == 'Q'||temp[0] == 'q')
         {
             break;
         }
     }
 
-   // fprintf(stream, "goodbye, world!\n");
     write(file,&temBye[0],strlen(temBye));
-    //fclose(stream);
     pend
 }
 
