@@ -38,3 +38,6 @@ int test_mallopt_M_MAP_MAX();
 int test_mcheck();
 int test_mprobe();
 int test_pipe();
+int testSocketsInterface();
+int test_sysconf();
+int test_backtrace();

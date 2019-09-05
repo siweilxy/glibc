@@ -4,6 +4,7 @@
 
 #include "common.h"
 #include <sys/resource.h>
+#include <unistd.h>
 
 //struct rusage
 //{
@@ -198,6 +199,41 @@ int test_getrusage()
 //#define RLIMIT_NLIMITS __RLIMIT_NLIMITS
 //#define RLIM_NLIMITS __RLIM_NLIMITS
 //};
+
+int test_sysconf()
+{
+    long int ret;
+    ret = sysconf(_SC_ARG_MAX);
+    std::cout<<"_SC_ARG_MAX:函数参数长度最大限制（字节）："<<ret<<std::endl;
+
+    ret = sysconf(_SC_CHILD_MAX);
+    std::cout<<"_SC_CHILD_MAX:每个实际用户ID的最大进程数："<<ret<<std::endl;
+
+    ret = sysconf(_SC_OPEN_MAX);
+    std::cout<<"_SC_OPEN_MAX:每个进程最大打开文件数："<<ret<<std::endl;
+
+    ret = sysconf(_SC_STREAM_MAX);
+    std::cout<<"_SC_STREAM_MAX:在任一时刻每个进程的最大标准I/O流数："<<ret<<std::endl;
+
+    ret = sysconf(_SC_TZNAME_MAX);
+    std::cout<<"_SC_TZNAME_MAX:时区名中最大字节数："<<ret<<std::endl;
+
+    ret = sysconf(_SC_NGROUPS_MAX);
+    std::cout<<"_SC_NGROUPS_MAX:每个进程的最大同时添加组ID数："<<ret<<std::endl;
+
+    ret = sysconf(_SC_JOB_CONTROL);
+    std::cout<<"_SC_JOB_CONTROL:指明实现是否支持作业控制："<<ret<<std::endl;
+
+    ret = sysconf(_SC_SAVED_IDS);
+    std::cout<<"_SC_SAVED_IDS:实现是否支持保存的设置："<<ret<<std::endl;
+
+    ret = sysconf(_SC_VERSION);
+    std::cout<<"_SC_VERSION:指明POSIX版本："<<ret<<std::endl;
+
+    ret = sysconf(_SC_CLK_TCK);
+    std::cout<<"_SC_CLK_TCK:每秒时钟滴答数："<<ret<<std::endl;
+    return 0;
+}
 
 int test_getrlimit()
 {

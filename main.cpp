@@ -7,6 +7,8 @@
 #include <map>
 #include <functional>
 #include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 int endTest()
 {
@@ -26,7 +28,10 @@ std::map<int, std::function<int(void)>> testList =
 { 8, test_mprobe },
 { 9, test_mtrace },
 { 10, test_brk_sbrk },
-{ 11, test_pipe } };
+{ 11, test_pipe },
+{ 12, testSocketsInterface },
+{ 13, test_sysconf },
+{ 14, test_backtrace } };
 
 std::map<int, std::string> testListName =
 {
@@ -40,7 +45,10 @@ std::map<int, std::string> testListName =
 { 8, "test_mprobe" },
 { 9, "test_mtrace" },
 { 10, "test_brk_sbrk" },
-{ 11, "test_pipe" } };
+{ 11, "test_pipe" },
+{ 12, "testSocketsInterface" },
+{ 13, "test_sysconf" },
+{ 14, "test_backtrace" } };
 
 int main()
 {
@@ -48,8 +56,7 @@ int main()
 
     for (auto iter : testListName)
     {
-        std::cout << iter.first << " :" << iter.second << "pid is " << getpid()
-                << std::endl;
+        std::cout << iter.first << " :" << iter.second << std::endl;
     }
 
     char t[111];
@@ -69,7 +76,8 @@ int main()
         int ret = func->second();
         if (ret == 10)
         {
-            printf("=======================测试结束===================================\n");
+            printf(
+                    "=======================测试结束===================================\n");
             break;
         } else if (ret != 0)
         {
