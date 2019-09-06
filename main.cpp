@@ -18,20 +18,21 @@ int endTest()
 
 std::map<int, std::function<int(void)>> testList =
 {
-{ 1, print_info },
-{ 2, endTest },
-{ 3, test_realloc },
-{ 4, test_aligned_alloc },
-{ 5, test_mallopt_M_MAP_MAX },
-{ 6, test_mallopt_M_MMAP_THRESHOLD },
-{ 7, test_mcheck },
-{ 8, test_mprobe },
-{ 9, test_mtrace },
-{ 10, test_brk_sbrk },
-{ 11, test_pipe },
-{ 12, testSocketsInterface },
-{ 13, test_sysconf },
-{ 14, test_backtrace } };
+    {   1, print_info},
+    {   2, endTest},
+    {   3, test_realloc},
+    {   4, test_aligned_alloc},
+    {   5, test_mallopt_M_MAP_MAX},
+    {   6, test_mallopt_M_MMAP_THRESHOLD},
+    {   7, test_mcheck},
+    {   8, test_mprobe},
+    {   9, test_mtrace},
+    {   10, test_brk_sbrk},
+    {   11, test_pipe},
+    {   12, testSocketsInterface},
+    {   13, test_sysconf},
+    {   14, test_backtrace},
+    {   15,masterAndSlave}};
 
 std::map<int, std::string> testListName =
 {
@@ -48,7 +49,7 @@ std::map<int, std::string> testListName =
 { 11, "test_pipe" },
 { 12, "testSocketsInterface" },
 { 13, "test_sysconf" },
-{ 14, "test_backtrace" } };
+{ 14, "test_backtrace" } ,{15,"masterAndSlave"}};
 
 int main()
 {
