@@ -23,8 +23,9 @@ int slave(int i)
     while(1)
     {
 
-       // sleep(i);
+        sleep(i);
         int size = write(socketPair[i].socketfd[0], buf, strlen(buf));
+        break;
         //printf("write size is %d,i is %d\n",size,i);
     }
     printf("离开slave函数\n");

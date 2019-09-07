@@ -39,7 +39,8 @@ int masterAndSlave()
             if(i == cpus)
             {
                 printf(RED "i is %d,slaves init complete\n " NONE,i);
-                ret = master();
+                //ret = master();
+                ret = master_nonblock();
                 if(ret != 0)
                 {
                     printf("master is error\n");

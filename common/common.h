@@ -50,6 +50,7 @@ int test_backtrace();
 int masterAndSlave();
 int slave(int i);
 int master();
+int master_nonblock();
 
 #define NONE                 "\e[0m"
 #define BLACK                "\e[0;30m"
