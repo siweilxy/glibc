@@ -16,6 +16,12 @@ typedef struct test_s
     char data[1024];
 }test_t;
 
+typedef struct socketFd_s
+{
+    int socketfd[2];
+    int pid;
+}socketFd_t;
+
 #define pstart std::cout<<__FUNCTION__<<" ====================start====================="<<std::endl;
 #define pend std::cout<<__FUNCTION__<<" ======================end======================="<<std::endl;
 
@@ -42,7 +48,7 @@ int testSocketsInterface();
 int test_sysconf();
 int test_backtrace();
 int masterAndSlave();
-int slave();
+int slave(int i);
 int master();
 
 #define NONE                 "\e[0m"
