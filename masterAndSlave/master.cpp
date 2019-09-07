@@ -50,9 +50,9 @@ int master_nonblock()
 
     while (1)
     {
-        printf("epoll_wait start\n");
+        //printf("epoll_wait start\n");
         event_cnt = epoll_wait(epfd, ep_events, 50, -1);
-        printf("epoll_wait endl\n");
+        //printf("epoll_wait endl\n");
         if (event_cnt == -1)
         {
             printf("epoll_wait error\n");
