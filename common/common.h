@@ -14,20 +14,31 @@ typedef struct test_s
     int i;
     int j;
     char data[1024];
-}test_t;
+} test_t;
 
 typedef struct socketFd_s
 {
     int socketfd[2];
     int pid;
-}socketFd_t;
+} socketFd_t;
 
-typedef struct msg_stat_s
+typedef struct msg_s
 {
+    int id;
     int pid;
     int result;
-    char time[30];
-}msgStat_t;
+    int order;
+} msg_t;
+
+enum orderType
+{
+    order_start = 0, order_end
+};
+
+enum orderResult
+{
+    order_success = 0, order_failed
+};
 
 #define pstart std::cout<<__FUNCTION__<<" ====================start====================="<<std::endl;
 #define pend std::cout<<__FUNCTION__<<" ======================end======================="<<std::endl;

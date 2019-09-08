@@ -35,7 +35,8 @@ int masterAndSlave()
         pid = fork();
         if (pid > 0)
         {
-            printf("this is master,init %d slaves,master pid is %d\n", i,getpid());
+            printf("this is master,init %d slaves,master pid is %d,slave pid is %d\n", i,getpid(),ret);
+            socketPair[i].pid = ret;
             if(i == cpus)
             {
                 printf(RED "i is %d,slaves init complete\n " NONE,i);
