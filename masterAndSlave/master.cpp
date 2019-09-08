@@ -25,12 +25,12 @@ extern socketFd_t socketPair[512];
 
 int findIdbyPid(int pid)
 {
-    for(int i = 1;i<=32;i++)
+    for (int i = 1; i <= 32; i++)
     {
-       if(socketPair[i].pid == pid)
-       {
-           return i;
-       }
+        if (socketPair[i].pid == pid)
+        {
+            return i;
+        }
     }
     return -1;
 }
@@ -154,30 +154,29 @@ int master_nonblock()
             }
         }
 
-        while (success == 0)
+        if (success == 0)
         {
-            printf("success is %d\n",success);
-            for (int i = 1; i <= cpus; i++)
+            printf("任务执行结束\n");
+            break;
+        }
+    }
+
+    printf("success is %d\n", success);
+    printf("开始检测进程状态\n");
+    for (int i = 1; i <= cpus; i++)
+    {
+        while (success != 0)
+        {
+            ret = waitpid(socketPair[i].pid, &status, 0);
+            if (ret > 0)
             {
-                printf("开始检测进程状态\n");
-                while (success != 0)
-                {
-                    ret = waitpid(socketPair[i].pid, &status, 0);
-                    if (ret > 0)
-                    {
-                        success--;
-                        printf("i is %d status is %d,ret is %d\n", i, status,
-                                ret);
-                    } else
-                    {
-                        printf("i is %d ret is %d,status is %d\n", i, ret,
-                                status);
-                    }
-                }
+                success--;
+                printf("i is %d status is %d,ret is %d\n", i, status, ret);
+            } else
+            {
+                printf("i is %d ret is %d,status is %d\n", i, ret, status);
             }
         }
-        printf("任务执行结束\n");
-        break;
     }
 
     printf("离开master函数\n");

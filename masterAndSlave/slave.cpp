@@ -41,18 +41,18 @@ int slave(int i)
             {
                 printf("%d:%d收到开始指令\n",i,getpid());
 
-                sleep(i);
+                //sleep(i);
                 msg->id = i;
                 msg->pid = getpid();
                 msg->result = order_success;
                 memcpy(buf, msg, sizeof(msg_t));
                 int size = write(socketPair[i].socketfd[0], buf, sizeof(msg_t));
-                //printf("%d发送结果应答完毕\n",i);
+                printf("%d发送结果应答完毕\n",i);
                 break;
             }
             case order_end:
             {
-                //printf("%d %d 收到停止指令\n",i,getpid());
+                printf("%d %d 收到停止指令\n",i,getpid());
                 exit(0);
                 break;
             }
