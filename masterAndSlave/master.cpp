@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
+
 char buf[512];
 extern int cpus;
 extern socketFd_t socketPair[512];
@@ -34,6 +35,7 @@ int master_nonblock()
     printf("进入master函数\n");
     struct epoll_event* ep_events;
     struct epoll_event event;
+    char buf_write[512] = "master msg";
     int epfd, event_cnt;
     epfd = epoll_create(50);
     int len = 0;
@@ -62,20 +64,31 @@ int master_nonblock()
         {
             while (1)
             {
-                printf("event_cnt is %d\n", event_cnt);
+                //printf("event_cnt is %d\n", event_cnt);
                 memset(buf, 0, sizeof(buf));
                 len = read(ep_events[i].data.fd, buf, sizeof(buf));
-                if (len < 0)
+                if(len == 0)
+                {
+                    printf("len == 0!!!!!!!!!!\n");
+                }
+                else if (len < 0)
                 {
                     if (errno == EAGAIN)
                     {
-                        printf("read EAGAIN,break\n");
+                        //printf("read EAGAIN,break\n");
                         break;
                     }
                 } else
                 {
                     printf("buf is %s, i is %d,fd is %d len is %d\n", buf, i,
                             ep_events[i].data.fd, len);
+                    int size = write(ep_events[i].data.fd, buf_write,
+                            strlen(buf_write));
+                    if (size <= 0)
+                    {
+                        printf("errno is %d,%s i is %d\n", errno,
+                                strerror(errno), i);
+                    }
                 }
             }
         }

@@ -22,6 +22,13 @@ typedef struct socketFd_s
     int pid;
 }socketFd_t;
 
+typedef struct msg_stat_s
+{
+    int pid;
+    int result;
+    char time[30];
+}msgStat_t;
+
 #define pstart std::cout<<__FUNCTION__<<" ====================start====================="<<std::endl;
 #define pend std::cout<<__FUNCTION__<<" ======================end======================="<<std::endl;
 
@@ -51,6 +58,7 @@ int masterAndSlave();
 int slave(int i);
 int master();
 int master_nonblock();
+void setnonblcokingmode(int fd);
 
 #define NONE                 "\e[0m"
 #define BLACK                "\e[0;30m"
