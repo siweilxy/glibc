@@ -20,6 +20,9 @@
 #include <sys/wait.h>
 
 char buf[512];
+char buf_write[512] = "master msg";
+msg_t msg =
+{ 0 };
 extern int cpus;
 extern socketFd_t socketPair[512];
 
@@ -44,15 +47,57 @@ void setnonblcokingmode(int fd)
     //printf("r is %d\n", r);
 }
 
+int solveMsg(struct epoll_event* ep_events,int i,int* status,int *success)
+{
+    int ret = 0;
+    msg = *(msg_t*) buf;
+
+    switch (msg.result)
+    {
+    case order_success:
+    {
+        printf("%d 执行任务成功\n", msg.id);
+        msg.order = order_end;
+        memcpy(buf_write, &msg, sizeof(msg));
+        int size = write(ep_events[i].data.fd, buf_write, sizeof(msg_t));
+        if (size <= 0)
+        {
+            printf("errno is %d,%s id is %d\n", errno, strerror(errno), msg.id);
+        }
+
+        printf("发送停止指令成功 %d\n", msg.id);
+        ret = waitpid(msg.pid, status, 0);
+        if (ret > 0)
+        {
+            (*success)--;
+            printf("status is %d,ret is %d\n", *status, ret);
+        } else
+        {
+            printf("ret is %d,status is %d\n", ret, *status);
+        }
+
+        break;
+    }
+    case order_failed:
+    {
+        printf("%i 执行任务失败\n", msg.pid);
+        break;
+    }
+    default:
+    {
+        printf("%i 返回值不正确\n", msg.pid);
+    }
+    }
+    return 0;
+}
+
 int master_nonblock()
 {
     int success = 0;
     printf("进入master函数\n");
     struct epoll_event* ep_events;
     struct epoll_event event;
-    char buf_write[512] = "master msg";
-    msg_t msg =
-    { 0 };
+
     int epfd, event_cnt;
     epfd = epoll_create(50);
     int len = 0;
@@ -65,7 +110,6 @@ int master_nonblock()
     {
         setnonblcokingmode(socketPair[i].socketfd[1]);
         event.data.fd = socketPair[i].socketfd[1];
-        //printf("event.data.fd is %d,i is %d\n", event.data.fd, i);
         epoll_ctl(epfd, EPOLL_CTL_ADD, socketPair[i].socketfd[1], &event);
 
         msg.id = i;
@@ -110,46 +154,7 @@ int master_nonblock()
                 } else
                 {
                     printf("收到消息\n");
-                    msg = *(msg_t*) buf;
-
-                    switch (msg.result)
-                    {
-                    case order_success:
-                    {
-                        printf("%d 执行任务成功\n", msg.id);
-                        msg.order = order_end;
-                        memcpy(buf_write, &msg, sizeof(msg));
-                        int size = write(ep_events[i].data.fd, buf_write,
-                                sizeof(msg_t));
-                        if (size <= 0)
-                        {
-                            printf("errno is %d,%s id is %d\n", errno,
-                                    strerror(errno), msg.id);
-                        }
-
-                        printf("发送停止指令成功 %d\n", msg.id);
-                        ret = waitpid(msg.pid, &status, 0);
-                        if (ret > 0)
-                        {
-                            success--;
-                            printf("status is %d,ret is %d\n", status, ret);
-                        } else
-                        {
-                            printf("ret is %d,status is %d\n", ret, status);
-                        }
-
-                        break;
-                    }
-                    case order_failed:
-                    {
-                        printf("%i 执行任务失败\n", msg.pid);
-                        break;
-                    }
-                    default:
-                    {
-                        printf("%i 返回值不正确\n", msg.pid);
-                    }
-                    }
+                    ret = solveMsg(ep_events,i, &status,&success);
                 }
             }
         }
