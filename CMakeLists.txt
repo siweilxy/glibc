@@ -15,5 +15,6 @@ add_executable(glibc main.cpp masterAndSlave/slave.cpp masterAndSlave/master.cpp
 target_link_libraries(glibc mcheck)
 
 add_subdirectory($ENV{HOME}/github/glibc/singleTest/ )
+add_subdirectory($ENV{HOME}/github/glibc/libuvtTest/ )
 SET(EXECUTABLE_OUTPUT_PATH $ENV{HOME}/github/glibc/bin)
 
